@@ -55,7 +55,7 @@ public class Program
                                                         {
                                                             if (famousActor.Movies.Any(m => m.Title == "Charlie's Chacolate Factory"))
                                                             {
-                                                                return "Johhny Depp";
+                                                                Console.WriteLine("Here is the great Johhny Depp!");
                                                             }
                                                         }
                                                     }
@@ -72,7 +72,6 @@ public class Program
                 }
 
             }
-            return "Someone else";
         }
 
         /// <summary>
