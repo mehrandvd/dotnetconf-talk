@@ -12,7 +12,7 @@ public class Program
     {
         Console.WriteLine("Hello, the old World!");
 
-        
+
     }
 
     /// <summary>
@@ -29,86 +29,90 @@ public class Program
 
                 if (humanCharacter.Prefix == "CAPTAIN")
                 {
-                    if (humanCharacter.Movie.Title.Contains("Pirates of the Caribbean"))
+                    if (humanCharacter.Movie != null)
                     {
-                        if (humanCharacter.Actor != null)
+                        if (humanCharacter.Movie.Title.Contains("Pirates of the Caribbean"))
                         {
-                            if (humanCharacter.Actor.Age != null)
+                            if (humanCharacter.Actor != null)
                             {
-                                var age = humanCharacter.Actor.Age.Value;
-
-                                if (age == 58)
+                                if (humanCharacter.Actor.Age != null)
                                 {
-                                    if (humanCharacter.Actor is FamousActor)
-                                    {
-                                        var famousActor = (FamousActor)humanCharacter.Actor;
+                                    var age = humanCharacter.Actor.Age.Value;
 
-                                        if (famousActor.Oscras.Any(o => o.Status == AwardStatus.Nominee))
+                                    if (age == 58)
+                                    {
+                                        if (humanCharacter.Actor is FamousActor)
                                         {
-                                            if (!famousActor.Oscras.Any(o => o.Status == AwardStatus.Won))
-                                                if (famousActor.IsInMehranHeart)
+                                            var famousActor = (FamousActor)humanCharacter.Actor;
+
+                                            if (famousActor.Oscras.Any(o => o.Status == AwardStatus.Nominee))
+                                            {
+                                                if (!famousActor.Oscras.Any(o => o.Status == AwardStatus.Won))
                                                 {
-                                                    if (famousActor.Movies != null)
+                                                    if (famousActor.IsInMehranHeart)
                                                     {
-                                                        if (famousActor.Movies.Any(m => m.Title == "Charlie's Chacolate Factory"))
+                                                        if (famousActor.Movies != null)
                                                         {
-                                                            return "Johhny Depp";
+                                                            if (famousActor.Movies.Any(m => m.Title == "Charlie's Chacolate Factory"))
+                                                            {
+                                                                return "Johhny Depp";
+                                                            }
                                                         }
                                                     }
                                                 }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+            }
+            return "Someone else";
+        }
+
+        /// <summary>
+        /// Demonsterates Pyrmid Doom of Usings
+        /// </summary>
+        /// <returns></returns>
+        public static async Task LoadMoviesAsync()
+        {
+            using (var clientMySite = new HttpClient())
+            {
+                using (var clientImdb = new HttpClient())
+                {
+                    using (var rottenClient = new HttpClient())
+                    {
+                        using (var metacriticClient = new HttpClient())
+                        {
+                            using (var charactersClient = new HttpClient())
+                            {
+                                using (var db = new LavaDb())
+                                {
+                                    using (var xml = XmlReader.Create("mymovies.xml"))
+                                    {
+                                        var movies = await clientMySite.GetList<Movie>("https://mehrandvd.me/api/GetMovies");
+
+                                        foreach (var movie in movies)
+                                        {
+                                            movie.Characters = await charactersClient.GetList<MovieCharacter>("");
+                                            movie.RatingImdb = await charactersClient.GetOne<Rating>("");
+                                            movie.RatingRottenTomatoes = await charactersClient.GetOne<Rating>("");
+                                            movie.RatingMetacritic = await charactersClient.GetOne<Rating>("");
                                         }
                                     }
                                 }
                             }
-                            
-                        }
-                    }
-                }
-                
-            }
-            
-        }
-        return "Someone else";
-    }
-
-    /// <summary>
-    /// Demonsterates Pyrmid Doom of Usings
-    /// </summary>
-    /// <returns></returns>
-    public static async Task LoadMoviesAsync()
-    {
-        using (var clientMySite = new HttpClient())
-        {
-            using (var clientImdb = new HttpClient())
-            {
-                using (var rottenClient = new HttpClient())
-                {
-                    using (var metacriticClient = new HttpClient())
-                    {
-                        using (var charactersClient = new HttpClient())
-                        {
-                            using (var db = new LavaDb())
-                            {
-                                using (var xml = XmlReader.Create("mymovies.xml"))
-                                {
-                                    var movies = await clientMySite.GetList<Movie>("https://mehrandvd.me/api/GetMovies");
-
-                                    foreach (var movie in movies)
-                                    {
-                                        movie.Characters = await charactersClient.GetList<MovieCharacter>("");
-                                        movie.RatingImdb = await charactersClient.GetOne<Rating>("");
-                                        movie.RatingRottenTomatoes = await charactersClient.GetOne<Rating>("");
-                                        movie.RatingMetacritic = await charactersClient.GetOne<Rating>("");
-                                    }
-                                }
-                            }
                         }
                     }
                 }
             }
         }
     }
-}
 
 
 

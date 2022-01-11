@@ -10,9 +10,8 @@ namespace MovieLava.Models
     {
         public decimal Rating { get; set; }
         public int VoteCount { get; set; }
-        public Movie Movie { get; set; }
+        public Movie? Movie { get; set; }
         public DateOnly AppearDate { get; set; }
-        public Movie FirstAppearanceMovie { get; set; }
     }
 
     public class HumanCharacter : MovieCharacter
