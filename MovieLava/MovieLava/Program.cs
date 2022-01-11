@@ -8,7 +8,7 @@ using System.Xml;
 
 public class Program
 {
-    public static async Task Main()
+    public static void Main()
     {
         Console.WriteLine("Hello, the OLD World!");
     }
@@ -51,7 +51,7 @@ public class Program
                                                     {
                                                         if (famousActor.Movies != null)
                                                         {
-                                                            if (famousActor.Movies.Any(m => m.Title == "Charlie's Chacolate Factory"))
+                                                            if (famousActor.Movies.Any(m => m.Title == "Charlie and the Chocolate Factory"))
                                                             {
                                                                 Console.WriteLine("Here is the great Johhny Depp!");
                                                             }
