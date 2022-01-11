@@ -73,36 +73,36 @@ public class Program
 
             }
         }
+    }
 
-        /// <summary>
-        /// Demonsterates Pyrmid Doom of Usings
-        /// </summary>
-        /// <returns></returns>
-        public static async Task LoadMoviesAsync()
+    /// <summary>
+    /// Demonsterates Pyrmid Doom of Usings
+    /// </summary>
+    /// <returns></returns>
+    public static async Task LoadMoviesAsync()
+    {
+        using (var clientMySite = new HttpClient())
         {
-            using (var clientMySite = new HttpClient())
+            using (var clientImdb = new HttpClient())
             {
-                using (var clientImdb = new HttpClient())
+                using (var rottenClient = new HttpClient())
                 {
-                    using (var rottenClient = new HttpClient())
+                    using (var metacriticClient = new HttpClient())
                     {
-                        using (var metacriticClient = new HttpClient())
+                        using (var charactersClient = new HttpClient())
                         {
-                            using (var charactersClient = new HttpClient())
+                            using (var db = new LavaDb())
                             {
-                                using (var db = new LavaDb())
+                                using (var xml = XmlReader.Create("mymovies.xml"))
                                 {
-                                    using (var xml = XmlReader.Create("mymovies.xml"))
-                                    {
-                                        var movies = await clientMySite.GetList<Movie>("https://mehrandvd.me/api/GetMovies");
+                                    var movies = await clientMySite.GetList<Movie>("https://mehrandvd.me/api/GetMovies");
 
-                                        foreach (var movie in movies)
-                                        {
-                                            movie.Characters = await charactersClient.GetList<MovieCharacter>("");
-                                            movie.RatingImdb = await charactersClient.GetOne<Rating>("");
-                                            movie.RatingRottenTomatoes = await charactersClient.GetOne<Rating>("");
-                                            movie.RatingMetacritic = await charactersClient.GetOne<Rating>("");
-                                        }
+                                    foreach (var movie in movies)
+                                    {
+                                        movie.Characters = await charactersClient.GetList<MovieCharacter>("");
+                                        movie.RatingImdb = await charactersClient.GetOne<Rating>("");
+                                        movie.RatingRottenTomatoes = await charactersClient.GetOne<Rating>("");
+                                        movie.RatingMetacritic = await charactersClient.GetOne<Rating>("");
                                     }
                                 }
                             }
@@ -112,6 +112,6 @@ public class Program
             }
         }
     }
-
+}
 
 
