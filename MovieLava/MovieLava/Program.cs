@@ -19,7 +19,7 @@ public class Program
     /// Demonsterates Pyrmid Doom of If Conditions
     /// </summary>
     /// <returns></returns>
-    public static string GuessCharacter(MovieCharacter character)
+    public static void GuessCharacter(MovieCharacter character)
     {
         if (character != null)
         {
