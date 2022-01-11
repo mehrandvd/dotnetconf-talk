@@ -13,8 +13,6 @@ namespace MovieLava
         object GrabOil() { return new object(); }
         void BoilOil(object oil) { }
         object CookEggOnOil(object oil, object egg) { return new object(); }
-        object BakeSunnySideUp(object oil, object egg) { return new object(); }
-        object BakeEgg(object water, object egg) { return new object(); }
         object CookBread() { return new object(); }
         void GetBreadOutOfOven(object cheese) { }
         void OpenCheese(object cheese) { }

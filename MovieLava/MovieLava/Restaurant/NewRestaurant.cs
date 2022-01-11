@@ -13,8 +13,6 @@ namespace MovieLava
         Task<object> GrabOil() => Task.FromResult(new object());
         Task BoilOil(object oil) => Task.CompletedTask;
         Task<object> CookEggOnOil(object oil, object egg) => Task.FromResult(new object());
-        Task<object> BakeSunnySideUp(object oil, object egg) => Task.FromResult(new object());
-        Task<object> BakeEgg(object water, object egg) => Task.FromResult(new object());
         Task<object> CookBread() => Task.FromResult(new object());
         Task GetBreadOutOfOven(object cheese) => Task.CompletedTask;
         Task OpenCheese(object cheese) => Task.CompletedTask;
