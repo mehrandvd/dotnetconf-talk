@@ -3,65 +3,67 @@
 using MovieLava.API;
 using MovieLava.Database;
 using MovieLava.Models;
-using Refit;
 using System.Xml;
 
-public class Program
+namespace MovieLava
 {
-    public static void Main()
+    public class Program
     {
-        Console.WriteLine("Hello, the OLD World!");
-    }
-
-    /// <summary>
-    /// Demonsterates Pyrmid Doom of If Conditions
-    /// </summary>
-    /// <returns></returns>
-    public static void GuessCharacter(MovieCharacter character)
-    {
-        if (character != null)
+        public static void Main()
         {
-            if (character is HumanCharacter)
+            Console.WriteLine("Hello, the OLD World!");
+        }
+
+        /// <summary>
+        /// Demonsterates Pyrmid Doom of If Conditions
+        /// </summary>
+        /// <returns></returns>
+        public static void GuessCharacter(MovieCharacter character)
+        {
+            if (character != null)
             {
-                var humanCharacter = (HumanCharacter)character;
-
-                if (humanCharacter.Prefix == "CAPTAIN")
+                if (character is HumanCharacter)
                 {
-                    if (humanCharacter.Movie != null)
+                    var humanCharacter = (HumanCharacter)character;
+
+                    if (humanCharacter.Prefix == "CAPTAIN")
                     {
-                        if (humanCharacter.Movie.Title.Contains("Pirates of the Caribbean"))
+                        if (humanCharacter.Movie != null)
                         {
-                            if (humanCharacter.Actor != null)
+                            if (humanCharacter.Movie.Title.Contains("Pirates of the Caribbean"))
                             {
-                                if (humanCharacter.Actor.Age != null)
+                                if (humanCharacter.Actor != null)
                                 {
-                                    var age = humanCharacter.Actor.Age.Value;
-
-                                    if (age == 58)
+                                    if (humanCharacter.Actor.Age != null)
                                     {
-                                        if (humanCharacter.Actor is FamousActor)
-                                        {
-                                            var famousActor = (FamousActor)humanCharacter.Actor;
+                                        var age = humanCharacter.Actor.Age.Value;
 
-                                            if (famousActor.Oscras.Any(o => o.Status == AwardStatus.Nominee))
+                                        if (age == 58)
+                                        {
+                                            if (humanCharacter.Actor is FamousActor)
                                             {
-                                                if (!famousActor.Oscras.Any(o => o.Status == AwardStatus.Won))
+                                                var famousActor = (FamousActor)humanCharacter.Actor;
+
+                                                if (famousActor.Oscras.Any())
                                                 {
-                                                    if (famousActor.IsInMehranHeart)
+                                                    if (!famousActor.Oscras.Any(o => o.Status == AwardStatus.Won))
                                                     {
-                                                        if (famousActor.Movies != null)
+                                                        if (famousActor.IsInMehranHeart)
                                                         {
-                                                            if (famousActor.Movies.Any(m => m.Title == "Charlie and the Chocolate Factory"))
+                                                            if (famousActor.Movies != null)
                                                             {
-                                                                Console.WriteLine("Here is the only CAPTAIN Jack Sparrow!");
+                                                                if (famousActor.Movies.Any(m => m.Title == "Charlie and the Chocolate Factory"))
+                                                                {
+                                                                    Console.WriteLine("Here is the only CAPTAIN Jack Sparrow!");
+                                                                }
                                                             }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
+                                    }
                                 }
                             }
                         }
@@ -69,36 +71,36 @@ public class Program
                 }
             }
         }
-    }
 
-    /// <summary>
-    /// Demonsterates Pyrmid Doom of Usings
-    /// </summary>
-    /// <returns></returns>
-    public static async Task LoadMoviesAsync()
-    {
-        using (var clientMySite = new HttpClient())
+        /// <summary>
+        /// Demonsterates Pyrmid Doom of Usings
+        /// </summary>
+        /// <returns></returns>
+        public static async Task LoadMoviesAsync()
         {
-            using (var clientImdb = new HttpClient())
+            using (var clientMySite = new HttpClient())
             {
-                using (var rottenClient = new HttpClient())
+                using (var clientImdb = new HttpClient())
                 {
-                    using (var metacriticClient = new HttpClient())
+                    using (var rottenClient = new HttpClient())
                     {
-                        using (var charactersClient = new HttpClient())
+                        using (var metacriticClient = new HttpClient())
                         {
-                            using (var db = new LavaDb())
+                            using (var charactersClient = new HttpClient())
                             {
-                                using (var xml = XmlReader.Create("mymovies.xml"))
+                                using (var db = new LavaDb())
                                 {
-                                    var movies = await clientMySite.GetList<Movie>("https://mehrandvd.me/api/GetMovies");
-
-                                    foreach (var movie in movies)
+                                    using (var xml = XmlReader.Create("mymovies.xml"))
                                     {
-                                        movie.Characters = await charactersClient.GetList<MovieCharacter>("");
-                                        movie.RatingImdb = await charactersClient.GetOne<Rating>("");
-                                        movie.RatingRottenTomatoes = await charactersClient.GetOne<Rating>("");
-                                        movie.RatingMetacritic = await charactersClient.GetOne<Rating>("");
+                                        var movies = await clientMySite.GetList<Movie>("https://mehrandvd.me/api/GetMovies");
+
+                                        foreach (var movie in movies)
+                                        {
+                                            movie.Characters = await charactersClient.GetList<MovieCharacter>("");
+                                            movie.RatingImdb = await charactersClient.GetOne<Rating>("");
+                                            movie.RatingRottenTomatoes = await charactersClient.GetOne<Rating>("");
+                                            movie.RatingMetacritic = await charactersClient.GetOne<Rating>("");
+                                        }
                                     }
                                 }
                             }
@@ -109,5 +111,3 @@ public class Program
         }
     }
 }
-
-
