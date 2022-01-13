@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using MovieLava.API;
+﻿using MovieLava.API;
 using MovieLava.Database;
 using MovieLava.Models;
 using System.Xml;
@@ -18,7 +16,7 @@ namespace MovieLava
         /// Demonsterates Pyrmid Doom of If Conditions
         /// </summary>
         /// <returns></returns>
-        public static void GuessCharacter(MovieCharacter character)
+        public static void GuessIfIsJack(MovieCharacter character)
         {
             if (character != null)
             {
@@ -48,7 +46,7 @@ namespace MovieLava
                                                 {
                                                     if (!famousActor.Oscras.Any(o => o.Status == AwardStatus.Won))
                                                     {
-                                                        if (famousActor.IsInMehranHeart)
+                                                        if (famousActor.IsInPeopleHeart)
                                                         {
                                                             if (famousActor.Movies != null)
                                                             {

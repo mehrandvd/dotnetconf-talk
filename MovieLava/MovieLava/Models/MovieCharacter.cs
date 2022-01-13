@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MovieLava.Models
 {
-    public class MovieCharacter : Entity
+    public class MovieCharacter
     {
         public decimal Rating { get; set; }
         public int VoteCount { get; set; }

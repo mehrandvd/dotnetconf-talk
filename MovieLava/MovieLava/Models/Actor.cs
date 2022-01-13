@@ -12,7 +12,7 @@
     public class FamousActor : Actor
     {
         public List<Award> Oscras { get; set; }
-        public bool IsInMehranHeart { get; set; }
+        public bool IsInPeopleHeart { get; set; }
     }
 
     public class Award
